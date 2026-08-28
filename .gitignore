@@ -1,0 +1,36 @@
+# Sistema operacional
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editores
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Arquivos temporarios e logs
+*.bak
+*.log
+*.tmp
+*~
+
+# Intel Quartus Prime: resultados gerados
+db/
+incremental_db/
+output_files/
+qdb/
+greybox_tmp/
+*.qws
+*.smsg
+
+# ModelSim e Questa: resultados gerados
+work/
+transcript
+vsim.wlf
+*.wlf
+modelsim.ini
+
+# Simulacoes e formas de onda geradas
+*.vcd
+*.fst
