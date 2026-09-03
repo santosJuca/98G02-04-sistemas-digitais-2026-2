@@ -30,6 +30,9 @@ transcript
 vsim.wlf
 *.wlf
 modelsim.ini
+coverage_report/
+*.ucdb
+*.mpf
 
 # Simulacoes e formas de onda geradas
 *.vcd
