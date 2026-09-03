@@ -2,18 +2,19 @@
 
 Exercício avaliativo da disciplina de Sistemas Digitais.
 
-O trabalho usa uma ALU de 8 bits em SystemVerilog e um testbench automático para verificar as oito operações do circuito. A simulação e a análise de cobertura foram feitas no QuestaSim.
+O objetivo deste trabalho é testar uma ALU de 8 bits feita em SystemVerilog e analisar a cobertura obtida na simulação. O testbench verifica automaticamente os resultados e as saídas `zero` e `overflow`.
 
 ## Arquivos
 
-- `alu.sv`: módulo da ALU fornecido no exercício.
+- `alu.sv`: código da ALU fornecida no exercício.
 - `alu_tb.sv`: aplica os valores de teste e compara as saídas com os resultados esperados.
 - `sim.do`: compila os arquivos, executa a simulação, salva a cobertura e gera o relatório HTML.
-- `wave.do`: organiza os sinais exibidos na janela Wave do QuestaSim.
+- `wave.do`: organiza os sinais mostrados na janela Wave do QuestaSim.
+- `README.md`: explica o trabalho, os testes e como executar a simulação.
 
-Os arquivos `work/`, `coverage_report/`, `transcript`, `vsim.wlf`, `*.ucdb` e `*.mpf` não ficam no repositório porque são gerados durante a simulação.
+Os arquivos `work/`, `coverage_report/`, `transcript`, `vsim.wlf`, `*.ucdb` e `*.mpf` não ficam no repositório porque são gerados pelo QuestaSim.
 
-## Testes realizados
+## Operações testadas
 
 | Código | Operação | Exemplo verificado |
 | --- | --- | --- |
@@ -28,18 +29,18 @@ Os arquivos `work/`, `coverage_report/`, `transcript`, `vsim.wlf`, `*.ucdb` e `*
 
 Também foi testada uma soma com resultado zero. Ao todo, o testbench executa nove testes e informa no Transcript se todos passaram.
 
-## Questões de cobertura
+## Respostas sobre cobertura
 
-- **Statements:** são esperadas 10 de 11 linhas executáveis, pois as oito operações e os dois `assign` são exercitados. O `default` não é executado.
-- **Branches:** são esperados 8 de 9 caminhos do `case`. As operações de `0000` até `0111` são testadas, mas o caminho `default` não é forçado.
-- **Toggle:** o enunciado cita um sinal `data`, mas esse sinal não existe na ALU fornecida. A análise foi feita sobre `result`, que possui 8 bits. Não foi criada uma sequência artificial apenas para obter 100%.
+- **Statements:** na contagem do exercício, são esperadas 10 de 11 linhas executáveis, cerca de 90,9%. As oito operações e os dois `assign` são exercitados. Não existe um caso de teste para o `default`.
+- **Branches:** são esperados 8 de 9 caminhos do `case`, cerca de 88,9%. As operações de `0000` até `0111` são testadas, mas não foi criado um teste para o caminho `default`.
+- **Toggle:** o enunciado cita um sinal `data`, mas esse sinal não existe na ALU fornecida. Considerando o `result` de 8 bits, existem 16 transições possíveis: 8 de 0 para 1 e 8 de 1 para 0.
 - **FSM:** não se aplica, pois a ALU é um circuito combinacional e não possui estados nem transições.
 
-Os percentuais exatos devem ser conferidos no relatório produzido pela versão do QuestaSim usada na execução.
+Não foram adicionados testes artificiais apenas para forçar 100% de cobertura. O percentual exato pode variar conforme a versão do QuestaSim e deve ser conferido no relatório gerado pela simulação.
 
 ## Como executar no VDI da PUCRS
 
-No terminal:
+No terminal, dentro da pasta do trabalho:
 
 ```bash
 source /soft64/source_gaph
