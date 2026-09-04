@@ -12,6 +12,7 @@ vlog -sv alu_tb.sv
 vsim -coverage work.alu_tb
 
 do wave.do
+onfinish stop
 run -all
 
 coverage report -detail -instance /alu_tb/dut
