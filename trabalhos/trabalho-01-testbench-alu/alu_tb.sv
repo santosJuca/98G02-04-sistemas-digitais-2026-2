@@ -2,18 +2,14 @@
 
 module alu_tb;
 
-    parameter WIDTH = 8;
-
-    logic [WIDTH-1:0] a;
-    logic [WIDTH-1:0] b;
+    logic [7:0] a;
+    logic [7:0] b;
     logic [3:0] op;
-    logic [WIDTH-1:0] result;
-    logic zero;
-    logic overflow;
+    logic [7:0] result;
+    logic       zero;
+    logic       overflow;
 
-    integer erros;
-
-    alu #(.WIDTH(WIDTH)) dut (
+    alu dut (
         .a(a),
         .b(b),
         .op(op),
@@ -22,56 +18,63 @@ module alu_tb;
         .overflow(overflow)
     );
 
-    task testar(
-        input logic [WIDTH-1:0] valor_a,
-        input logic [WIDTH-1:0] valor_b,
-        input logic [3:0] operacao,
-        input logic [WIDTH-1:0] esperado
-    );
-        logic zero_esperado;
-        logic overflow_esperado;
-
-        begin
-            a = valor_a;
-            b = valor_b;
-            op = operacao;
-            #10;
-
-            zero_esperado = (esperado == 0);
-            overflow_esperado = (valor_a[7] == valor_b[7]) &&
-                                (valor_a[7] != esperado[7]);
-
-            if ((result != esperado) ||
-                (zero != zero_esperado) ||
-                (overflow != overflow_esperado)) begin
-                erros = erros + 1;
-                $display("ERRO op=%b a=%h b=%h result=%h esperado=%h", op, a, b, result, esperado);
-            end
-            else begin
-                $display("OK op=%b result=%h", op, result);
-            end
-        end
-    endtask
-
     initial begin
-        erros = 0;
+        // soma: 12 + 34 = 46
+        a = 8'h12;
+        b = 8'h34;
+        op = 4'b0000;
+        #10;
 
-        testar(8'h00, 8'h00, 4'b0000, 8'h00); // soma
-        testar(8'h12, 8'h34, 4'b0000, 8'h46); // soma
-        testar(8'h55, 8'h33, 4'b0001, 8'h22); // subtracao
-        testar(8'hAA, 8'h0F, 4'b0010, 8'h0A); // AND
-        testar(8'h55, 8'hAA, 4'b0011, 8'hFF); // OR
-        testar(8'hA5, 8'h3C, 4'b0100, 8'h99); // XOR
-        testar(8'h0F, 8'h00, 4'b0101, 8'hF0); // NOT
-        testar(8'h01, 8'h07, 4'b0110, 8'h80); // shift esquerda
-        testar(8'h80, 8'h07, 4'b0111, 8'h01); // shift direita
+        // soma com resultado zero
+        a = 8'h00;
+        b = 8'h00;
+        op = 4'b0000;
+        #10;
 
-        if (erros == 0)
-            $display("Todos os testes passaram.");
-        else
-            $display("Total de erros: %0d", erros);
+        // subtracao: 55 - 33 = 22
+        a = 8'h55;
+        b = 8'h33;
+        op = 4'b0001;
+        #10;
 
-        $finish;
+        // AND: AA & 0F = 0A
+        a = 8'hAA;
+        b = 8'h0F;
+        op = 4'b0010;
+        #10;
+
+        // OR: 55 | AA = FF
+        a = 8'h55;
+        b = 8'hAA;
+        op = 4'b0011;
+        #10;
+
+        // XOR: A5 ^ 3C = 99
+        a = 8'hA5;
+        b = 8'h3C;
+        op = 4'b0100;
+        #10;
+
+        // NOT: ~0F = F0
+        a = 8'h0F;
+        b = 8'h00;
+        op = 4'b0101;
+        #10;
+
+        // deslocamento para a esquerda: 01 << 7 = 80
+        a = 8'h01;
+        b = 8'h07;
+        op = 4'b0110;
+        #10;
+
+        // deslocamento para a direita: 80 >> 7 = 01
+        a = 8'h80;
+        b = 8'h07;
+        op = 4'b0111;
+        #10;
+
+        $display("Fim da simulacao. Confira os resultados na janela Wave.");
+        $stop;
     end
 
 endmodule

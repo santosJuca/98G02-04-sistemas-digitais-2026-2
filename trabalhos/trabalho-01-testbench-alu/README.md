@@ -1,50 +1,22 @@
-# Trabalho 01 - Testbench da ALU
+# Trabalho 01 - Testbench de uma ALU
 
-Trabalho da disciplina de Sistemas Digitais.
+Este trabalho apresenta o teste de uma ALU de 8 bits em SystemVerilog.
 
-O objetivo foi testar a ALU de 8 bits no QuestaSim e verificar a cobertura da simulação.
+O testbench aplica manualmente valores nas entradas da ALU para observar as operacoes de soma, subtracao, AND, OR, XOR, NOT e deslocamentos. Os resultados podem ser conferidos na janela Wave do QuestaSim.
 
 ## Arquivos
 
 - `alu.sv`: ALU usada no trabalho.
-- `alu_tb.sv`: testbench com os casos de teste.
-- `sim.do`: comandos para compilar e rodar a simulação.
-- `wave.do`: sinais mostrados na janela Wave.
+- `alu_tb.sv`: testbench com os estimulos.
+- `sim.do`: comandos para compilar e executar a simulacao.
+- `wave.do`: adiciona os sinais na janela Wave.
 
-## Testes
+## Execucao
 
-Foram testadas as operações:
-
-- soma
-- subtração
-- AND
-- OR
-- XOR
-- NOT
-- deslocamento para esquerda
-- deslocamento para direita
-
-Também foi feito um teste de soma com resultado zero.
-
-## Cobertura
-
-- Statements: o `default` não é executado nos testes.
-- Branches: são testadas as 8 operações da ALU, sem testar o `default`.
-- Toggle: o sinal `data` citado no enunciado não existe na ALU fornecida.
-- FSM: não se aplica, pois a ALU não possui estados.
-
-## Como executar
-
-No VDI da PUCRS:
-
-```bash
-source /soft64/source_gaph
-module load questa
-vsim
-```
-
-Depois, no Transcript do QuestaSim:
+Abra o QuestaSim na pasta do trabalho e execute:
 
 ```tcl
 do sim.do
 ```
+
+Ao final, confira os sinais `a`, `b`, `op`, `result`, `zero` e `overflow` na janela Wave.
